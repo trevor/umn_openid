@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<opConfig version="1.0">
+  <configRevision>1.0.00</configRevision>
+  <title>OpenID University of Minnesota</title>
+  <serverIdentifier>openid.umn.edu</serverIdentifier>
+  <description>OpenID for the University of Minnesota.</description>
+  <loginUrl>https://openid.umn.edu/server/login</loginUrl>
+  <welcomeUrl>https://openid.umn.edu/</welcomeUrl>
+  <loginStateUrl>https://openid.umn.edu/login_state</loginStateUrl>
+  <opDomain>openid.umn.edu</opDomain>
+  <opCertSHA1Hash>1B:6F:9C:5B:ED:22:26:A7:24:C1:86:2F:0E:9F:AF:B9:5B:13:E0:B7</opCertSHA1Hash>
+  <opCertCommonName>openid.umn.edu</opCertCommonName>
+  <settingsIconUrl>https://openid.umn.edu/images/check30x30.png</settingsIconUrl>
+  <toolbarGrayIconUrl>https://openid.umn.edu/images/umn_logo_16x16.jpg</toolbarGrayIconUrl>
+  <toolbarHighIconUrl>https://openid.umn.edu/images/umn_logo_16x16_gray.jpg</toolbarHighIconUrl>
+  <toolbarGrayBackground>#e0e0e0</toolbarGrayBackground>
+  <toolbarHighBackground>#fed18b</toolbarHighBackground>
+  <toolbarLoginBackground>#99e0a8</toolbarLoginBackground>
+  <toolbarGrayBorder>#a0a0a0</toolbarGrayBorder>
+  <toolbarHighBorder>#860038</toolbarHighBorder>
+  <toolbarLoginBorder>#a0a0a0</toolbarLoginBorder>
+  <toolbarGrayText>#000000</toolbarGrayText>
+  <toolbarHighText>#860038</toolbarHighText>
+  <toolbarLoginText>#000000</toolbarLoginText>
+</opConfig>
+

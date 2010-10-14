@@ -1,0 +1,18 @@
+University of Minnesota OpenID Server
+
+This is a Ruby on Rails application based on the example code distributed with the Ruby OpenID library.
+
+See:
+* http://github.com/trevor/umn_openid
+* https://openid.umn.edu/
+* http://openidenabled.com/ruby-openid/
+* https://pip.verisignlabs.com/seatbelt.do
+
+== Authors
+Original example copyright 2006-2007, JanRain, Inc.
+Purpose-fitted for University of Minnesota by Trevor Wennblom <trevor@umn.edu>
+OpenID logo copyright Randy Reddig
+Goldy Gopher logo copyright University of Minnesota
+
+== License
+Apache Software License.  For more information see the LICENSE file.

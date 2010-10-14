@@ -1,0 +1,15 @@
+<div id="login" class="i" style="width: 30em">
+<p><%= flash[:notice] %></p>
+
+<table style="text-align: left; padding: 1em">
+ <tr><td>Identity:</td><td style="background-color: #fffe99;"><%= @oidreq.identity %></td></tr>
+ <tr><td>Site:</td><td  style="color: blue"><%= @oidreq.trust_root or @oidreq.return_to %></td></tr>
+</table>
+
+<form method="post" action="<%= url_for :controller => 'server', :action => 'decision' %>">
+
+<input style="padding: 0.5em; margin-right: 1em; font-size: 1em" type="submit" name="yes" value="yes" />
+<input style="padding: 0.5em; font-size: 1em" type="submit" name="no" value="no" />
+
+</form>
+</div>

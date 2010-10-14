@@ -1,0 +1,37 @@
+<% if !session[:umnauth] -%>
+<%# logged out -%>
+
+<div id="login" class="i">
+  <a href="https://openid.umn.edu/server/login">Login</a> to see your OpenID
+</div>
+
+<% else -%>
+<%# logged in -%>
+
+<div id="logout" class="i">
+  <p>Your OpenID is:</p>
+
+  <p><span class="openidurl"><%= url_for_user %></span></p>
+
+  <p>Copy and paste into websites that are OpenID enabled</p>
+
+  <p><br /></p>
+
+  <p><a href="https://www.umn.edu/logout?desturl=https://openid.umn.edu/">Logout</a> when finished</p>
+</div>
+<% end -%>
+
+<div id="impl-show-q" class="i impl-show-q">
+  <a onclick="document.getElementById('impl').style.display = 'block'; document.getElementById('impl-show-q').style.display = 'none';">About</a>
+</div>
+<div id="impl" class="i impl">
+  <dl>
+    <dt>What is OpenID?</dt>
+    <dd><a href="http://openid.net/what/">http://openid.net/what/</a></dd>
+    <dt>Hosted by the Minnesota Supercomputing Institute</dt>
+    <dd><a href="http://msi.umn.edu/">http://msi.umn.edu/</a></dd>
+    <dt>Project page:</dt>
+    <dd>Open Source, Bug Reports</dd>
+    <dd><a href="http://github.com/trevor/umn_openid">http://github.com/trevor/umn_openid</a></dd>
+  </dl>
+</div>
