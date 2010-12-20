@@ -1,5 +1,5 @@
 module ServerHelper
-  def url_for_user
-    user_page_url(:username => session[:umnauth].internet_id)
+  def url_for_user(x = session[:umnauth].internet_id)
+    user_page_url(:username => x)
   end
 end

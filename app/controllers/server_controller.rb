@@ -44,7 +44,7 @@ TXT
   end
 
   # same as example
-  def show_decision_page(oidreq, message="Do you trust this site with your identity?")
+  def show_decision_page(oidreq, message="Do you wish to authenticate with this site?")
     session[:last_oidreq] = oidreq
     check_oidreq_identity(session[:last_oidreq])
     @oidreq = oidreq
@@ -61,7 +61,7 @@ TXT
     logger.info '--- here'
     check_oidreq_identity(session[:last_oidreq])
     @oidreq = session[:last_oidreq]
-    message="Do you trust this site with your identity?"
+    message="Do you wish to authenticate with this site?"
     
     if message
       flash[:notice] = message
@@ -74,7 +74,7 @@ TXT
       oidreq = server.decode_request(params)
     rescue ProtocolError => e
       # invalid openid request, so just display a page with an error message
-      render :text => e.to_s, :status => 500
+      render :text => "This is an OpenID server endpoint, not a human-readable resource.<br><br>\n\n<pre>\n#{CGI.escapeHTML(e.inspect)}\n</pre>", :status => 500
       return
     end
 
@@ -148,11 +148,13 @@ TXT
     end
 
     # content negotiation failed, so just render the user page
-    xrds_url = url_for( '/' + params[:username] + '/xrds' )
+#    xrds_url = url_for( '/' + params[:username] + '/xrds' ) # this doesn't work with http://rt.cpan.org
+    xrds_url = user_page_url(params[:username]) + '/xrds'
 
     @identity_page_header = <<EOS
 <meta http-equiv="X-XRDS-Location" content="#{xrds_url}" />
 <link rel="openid.server" href="#{url_for :action => 'index'}" />
+<link rel="openid2.provider" href="#{url_for :action => 'index'}" />
 EOS
 
     # Also add the Yadis location header, so that they don't have
@@ -267,30 +269,35 @@ EOS
               self.approved( trust_root ) )
   end
 
-  # same as example
+  # modified from example
   def render_xrds(types)
-    type_str = ""
-
-    types.each { |uri|
-      type_str += "<Type>#{uri}</Type>\n      "
-    }
+    type_str = types.map{|uri| "<Type>#{uri}</Type>"}.join("\n      ")
 
     yadis = <<EOS
 <?xml version="1.0" encoding="UTF-8"?>
 <xrds:XRDS
     xmlns:xrds="xri://$xrds"
+    xmlns:openid="http://openid.net/xmlns/1.0"
     xmlns="xri://$xrd*($v*2.0)">
   <XRD>
     <Service priority="0">
       #{type_str}
       <URI>#{url_for(:controller => 'server', :only_path => false)}</URI>
+      <LocalID>#{user_page_url(params[:username])}</LocalID>
+    </Service>
+    
+    <Service priority="1">
+      <Type>http://openid.net/signon/1.1</Type>
+      <Type>http://openid.net/sreg/1.0</Type>
+      <Type>http://openid.net/extensions/sreg/1.1</Type>
+      <URI>#{url_for(:controller => 'server', :only_path => false)}</URI>
+      <openid:Delegate>#{user_page_url(params[:username])}</openid:Delegate>
     </Service>
   </XRD>
 </xrds:XRDS>
 EOS
 
-    response.headers['content-type'] = 'application/xrds+xml'
-    render :text => yadis
+    render :text => yadis, :content_type => Mime::XRDS
   end  
 
   # same as example
@@ -304,9 +311,9 @@ EOS
     # and the user should be asked for permission to release
     # it.
     sreg_data = {
-      'nickname' => session[:username],
-      'fullname' => session[:username],
-      'email' => "#{session[:username]}@umn.edu"
+      'nickname' => session[:umnauth].internet_id,
+      'fullname' => session[:umnauth].internet_id,
+      'email' => "#{session[:umnauth].internet_id}@umn.edu"
     }
 
     sregresp = OpenID::SReg::Response.extract_response(sregreq, sreg_data)

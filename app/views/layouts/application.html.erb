@@ -4,10 +4,10 @@
   <link rel="seatbelt.config" type="application/xml" href="https://openid.umn.edu/seatbeltcfg.xml" />
   <meta name="robots" content="noindex,nofollow" />
   <meta name="keywords" content="OpenID" />
-<%= @identity_page_header %>
+<%=raw @identity_page_header %>
   <link rel="stylesheet" type="text/css" media="screen, projection" href="/main.css" />
 
-  <title>OpenID University of Minnesota</title>
+  <% if params[:action] == 'user_page' %><title><%= request.url %></title><% else %><title>OpenID University of Minnesota</title><% end %>
 </head>
 
 <body>

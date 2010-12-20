@@ -1,3 +1,8 @@
 class ApplicationController < ActionController::Base
-#  protect_from_forgery
+#  before_filter :log_request
+
+  def log_request
+    logger.info request.inspect
+  end
+  
 end
